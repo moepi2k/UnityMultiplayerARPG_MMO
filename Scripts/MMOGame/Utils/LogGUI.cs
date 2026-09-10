@@ -42,6 +42,11 @@ namespace MultiplayerARPG.MMO
             Application.logMessageReceivedThreaded -= HandleLog;
         }
 
+        private void OnDestroy()
+        {
+            Application.logMessageReceivedThreaded -= HandleLog;
+        }
+
         private void HandleLog(LogType type, string logString)
         {
 #if !UNITY_SERVER || DEVELOPMENT_BUILD
@@ -78,14 +83,14 @@ namespace MultiplayerARPG.MMO
             {
                 case LogType.Assert:
                 case LogType.Log:
-                    Logging.Log(condition);
+                    Logging.LogQuiet(condition);
                     break;
                 case LogType.Exception:
                 case LogType.Error:
-                    Logging.LogError("{0}\n{1}", condition, stackTrace);
+                    Logging.LogErrorQuiet("{0}\n{1}", condition, stackTrace);
                     break;
                 case LogType.Warning:
-                    Logging.LogWarning(condition);
+                    Logging.LogWarningQuiet(condition);
                     break;
             }
         }
