@@ -25,8 +25,12 @@ namespace MultiplayerARPG.MMO
                     _filledInitialObjects = new List<AssetReference>();
                     _filledInitialObjects.AddRange(initialObjects);
                     _filledInitialObjects.Add(mapNetworkManager);
+#if !UNITY_SERVER
                     _filledInitialObjects.Add(mmoClientInstance);
+#endif
+#if UNITY_STANDALONE && (UNITY_EDITOR || UNITY_SERVER || !EXCLUDE_SERVER_CODES)
                     _filledInitialObjects.Add(mmoServerInstance);
+#endif
                     _filledInitialObjects.Add(gameInstance);
                 }
                 return _filledInitialObjects;

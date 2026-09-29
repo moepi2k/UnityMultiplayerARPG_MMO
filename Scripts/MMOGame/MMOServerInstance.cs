@@ -694,6 +694,11 @@ namespace MultiplayerARPG.MMO
         private void OnDestroy()
         {
             Application.wantsToQuit -= Application_wantsToQuit;
+#if (UNITY_EDITOR || UNITY_SERVER || !EXCLUDE_SERVER_CODES) && UNITY_STANDALONE
+            GameInstance.OnGameDataLoadedEvent -= OnGameDataLoaded;
+#endif
+            if (object.ReferenceEquals(Singleton, this))
+                Singleton = null;
         }
 
         private bool Application_wantsToQuit()

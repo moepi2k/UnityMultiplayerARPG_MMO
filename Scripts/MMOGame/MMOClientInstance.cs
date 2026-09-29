@@ -103,6 +103,12 @@ namespace MultiplayerARPG.MMO
             ClearMapClientEvents();
         }
 
+        private void OnDestroy()
+        {
+            if (object.ReferenceEquals(Singleton, this))
+                Singleton = null;
+        }
+
         public void OnCentralConnected()
         {
             if (OnCentralClientConnectedEvent != null)
