@@ -98,6 +98,11 @@ namespace MultiplayerARPG.MMO
 #if !UNITY_SERVER || DEVELOPMENT_BUILD
         void OnGUI()
         {
+            // Client instances can keep this component enabled without setting up logging.
+            // Avoid allocating an empty GUILayout tree for every IMGUI event.
+            if (!_loggingEnabled)
+                return;
+
             if (_logScrollingToBottom)
             {
                 _scrollPosition.y = Mathf.Infinity;
